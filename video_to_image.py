@@ -5,6 +5,24 @@
 # to use: python app.py --videopath [filepath]
 import sys
 import argparse
+import cv2
+
+
+def extractImages(pathIn, pathOut):
+    """
+    Convert video into images
+    """
+    vidcap = cv2.VideoCapture(pathIn)
+    success, image = vidcap.read()
+    count = 0
+    success = True
+
+    # Extract frame and convert to image
+    while success:
+        success, image = vidcap.read()
+        print('Read a new frame: ', success)
+        cv2.imwrite(pathOut + "\\frame%d.jpg" % count, image)
+        count += 1
 
 
 def main():
@@ -13,13 +31,13 @@ def main():
         description="This program converts an image into ASCII art.")
     # Adding expected arguments
     parser.add_argument('--videopath', dest='vidFile', required=True)
+    parser.add_argument("--outputpath", dest='outputPath',
+                        help="path to images", required=True)
     # parse args
     args = parser.parse_args()
-    imgFile = args.vidFile
-
-    # Prints ascii
-    for ascii in ascii_str_arr:
-        print(ascii)
+    vidPath = args.vidFile
+    outputPath = args.outputPath
+    extractImages(vidPath, outputPath)
 
 
 if __name__ == "__main__":
