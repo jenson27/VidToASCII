@@ -21,7 +21,7 @@ def extractImages(pathIn, pathOut):
     while success:
         success, image = vidcap.read()
         print('Read a new frame: ', success)
-        cv2.imwrite(pathOut + "\\frame%d.jpg" % count, image)
+        cv2.imwrite(pathOut + "\\%d.jpg" % count, image)
         count += 1
 
 
@@ -30,7 +30,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="This program converts an image into ASCII art.")
     # Adding expected arguments
-    parser.add_argument('--videopath', dest='vidFile', required=True)
+    parser.add_argument('--inputpath', dest='vidFile', required=True)
     parser.add_argument("--outputpath", dest='outputPath',
                         help="path to images", required=True)
     # parse args

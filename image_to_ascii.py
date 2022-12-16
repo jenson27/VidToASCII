@@ -112,7 +112,7 @@ def main():
 
     # open image and convert to grayscale
     image = Image.open(imgFile).convert('L')
-    ascii_str_arr = convert_image_to_Ascii(image, 100, 1, True)
+    ascii_str_arr = convert_image_to_Ascii(image, 50, 1, True)
 
     # Prints ascii
     for ascii in ascii_str_arr:

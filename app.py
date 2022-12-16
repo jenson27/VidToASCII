@@ -5,18 +5,23 @@ import time
 
 def main():
     # get the path/directory
-    main_dir = "D:\Astral\Document\Programming\Python\ImageToAscii"
-    folder_dir = "D:\Astral\Document\Programming\Python\ImageToAscii\images"
+    #main_dir = "D:\Astral\Document\Programming\Python\ImageToAscii"
+    #folder_dir = "D:\Astral\Document\Programming\Python\ImageToAscii\images"
+    main_dir = r"C:\Users\jenso\Documents\Programming\Python\VidToASCII"
+    image_dir = f"{main_dir}\images"
     os.system(f'cd {main_dir}')
-    for images in os.listdir(folder_dir):
-        os.system('cls')
 
-        # check if the image ends with png
-        if (images.endswith(".jpg")):
-            os.system("cd")
-            os.system(
-                f'python {main_dir}\image_to_ascii.py --imagepath {folder_dir}\{images}')
+    #prints out all image
+    all_images = sorted(os.listdir(image_dir), key=lambda x: int(x.split(".")[0])) 
+    for image in all_images:
+        #os.system('cmd /c cls')
+        print('\033[4A\033[2K', end='')
+        #print('\b'*1000)
+        print(image)
+        os.system(
+            f'python {main_dir}\image_to_ascii.py --imagepath {image_dir}\{image}')
 
 
 if __name__ == "__main__":
     main()
+
