@@ -1,6 +1,7 @@
 import os
 from os import listdir
 import time
+from image_to_ascii import main2 as image_ascii
 
 
 def animate(filepath):
@@ -25,8 +26,9 @@ def generate_ascii_file(all_images, main_dir, image_dir, text_dir):
     """
     counter = 0
     for image in all_images:
-        os.system(
-            f'python {main_dir}\image_to_ascii.py --imagepath {image_dir}\{image} --textpath {text_dir}\{counter}.txt')
+        # os.system(
+        #    f'python {main_dir}\image_to_ascii.py --imagepath {image_dir}\{image} --textpath {text_dir}\{counter}.txt')
+        image_ascii(f"{image_dir}\{image}", f"{text_dir}\{counter}.txt")
         counter += 1
 
 
@@ -44,8 +46,8 @@ def main():
                         key=lambda x: int(x.split(".")[0]))
 
     # Clear image directory
-    os.system(f"del /S {text_dir}\*")
-    generate_ascii_file(all_images, main_dir, image_dir, text_dir)
+    #os.system(f"del /S {text_dir}\*")
+    #generate_ascii_file(all_images, main_dir, image_dir, text_dir)
 
     animate(text_dir)
 

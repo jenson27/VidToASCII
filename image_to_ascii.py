@@ -47,7 +47,7 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
     h = w/scale
 
     # compute number of rows
-    rows = int(H/h)
+    rows = int(W/w)
 
     #print("cols: %d, rows: %d" % (cols, rows))
     #print("tile dims: %d x %d" % (w, h))
@@ -58,7 +58,7 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
         exit(0)
 
     # ascii image is a list of character strings
-    aimg = []
+    aimg = ""
     # generate list of dimensions
     for j in range(rows):
         y1 = int(j*h)
@@ -69,7 +69,8 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
             y2 = H
 
         # append an empty string
-        aimg.append("")
+        # aimg.append("")
+        aimg += ""
 
         for i in range(cols):
 
@@ -94,7 +95,9 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
                 gsval = gscale2[int((avg*9)/255)]
 
             # append ascii char to string
-            aimg[j] += gsval
+            #aimg[j] += gsval
+            aimg += gsval
+        aimg += "\n"
 
     # return txt image
     return aimg
@@ -105,7 +108,20 @@ def write_to_file(filename, lines):
     Write to a text file given an array of string
     '''
     with open(filename, "w") as txt_file:
-        txt_file.write('\n'.join(line for line in lines))
+        #txt_file.write('\n'.join(line for line in lines))
+        txt_file.write(lines)
+
+
+def main2(imgFile, txtFile):
+    # open image and convert to grayscale
+    image = Image.open(imgFile).convert('L')
+    ascii_str = convert_image_to_Ascii(image, 140, 2, True)
+
+    # Save to text file if imagepath is provided
+    if txtFile:
+        write_to_file(txtFile, ascii_str)
+    else:
+        print(ascii_str)
 
 
 def main():
@@ -122,14 +138,15 @@ def main():
 
     # open image and convert to grayscale
     image = Image.open(imgFile).convert('L')
-    ascii_str_arr = convert_image_to_Ascii(image, 70, 2, True)
 
-    # Checks if --imagepath exist
+    # Note col param is used to determine row
+    ascii_str = convert_image_to_Ascii(image, 170, 2, True)
+
+    # Save to text file if imagepath is provided
     if args.txtFile:
-        write_to_file(args.txtFile, ascii_str_arr)
+        write_to_file(args.txtFile, ascii_str)
     else:
-        for ascii in ascii_str_arr:
-            print(ascii)
+        print(ascii_str)
 
 
 if __name__ == "__main__":
