@@ -38,7 +38,7 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
 
     # store dimensions
     W, H = image.size[0], image.size[1]
-    print("input image dims: %d x %d" % (W, H))
+    #print("input image dims: %d x %d" % (W, H))
 
     # compute width of tile
     w = W/cols
@@ -49,8 +49,8 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
     # compute number of rows
     rows = int(H/h)
 
-    print("cols: %d, rows: %d" % (cols, rows))
-    print("tile dims: %d x %d" % (w, h))
+    #print("cols: %d, rows: %d" % (cols, rows))
+    #print("tile dims: %d x %d" % (w, h))
 
     # Checks if image size is too small
     if cols > W or rows > H:
@@ -100,23 +100,36 @@ def convert_image_to_Ascii(image, cols, scale, moreHeight):
     return aimg
 
 
+def write_to_file(filename, lines):
+    '''
+    Write to a text file given an array of string
+    '''
+    with open(filename, "w") as txt_file:
+        txt_file.write('\n'.join(line for line in lines))
+
+
 def main():
     # Creates argument parser
     parser = argparse.ArgumentParser(
         description="This program converts an image into ASCII art.")
     # Adding expected arguments
     parser.add_argument('--imagepath', dest='imgFile', required=True)
+    # Adding expected arguments
+    parser.add_argument('--textpath', dest='txtFile')
     # parse args
     args = parser.parse_args()
     imgFile = args.imgFile
 
     # open image and convert to grayscale
     image = Image.open(imgFile).convert('L')
-    ascii_str_arr = convert_image_to_Ascii(image, 50, 1, True)
+    ascii_str_arr = convert_image_to_Ascii(image, 70, 2, True)
 
-    # Prints ascii
-    for ascii in ascii_str_arr:
-        print(ascii)
+    # Checks if --imagepath exist
+    if args.txtFile:
+        write_to_file(args.txtFile, ascii_str_arr)
+    else:
+        for ascii in ascii_str_arr:
+            print(ascii)
 
 
 if __name__ == "__main__":
