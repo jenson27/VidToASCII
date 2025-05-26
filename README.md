@@ -1,5 +1,5 @@
 # VidToASCII
-- Convert a video into ascii texxt frame by frame and play it
+- Convert a video into ascii text frame by frame and play it
 
 ## image_to_ascii.py
 - Converts an image into ASCII art and save it into a text file
@@ -24,4 +24,10 @@
 ## app.py
 - runs the animation
 
-ok im damn lazy to make command param for this so edit the image_dir and text_dir urself, future me
+### Libary
+Install the required library to run
+- Pip Install Pillow
+- Pip Install Numpy
+
+### How to run?
+- python app.py
